@@ -26,12 +26,21 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                           <!-- Decrease Button  -->
+                           <button id="productDecrease" class="btn btn-default"><i class="fas fa-minus"></i></button>
+
+                           <input type="text" id="productQuantity" class="form-control text-center" value="1">
+
+                           <!-- Increase Button  -->
+                           <button id="productIncrease" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+
+                        <!-- iPhone price -->
+
+                        <h5>$ <span id="rate">100</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
+
                      </div>
                   </div>
                </div>
@@ -44,13 +53,17 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="caseDecreaseButton" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="caseIncreaseButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+
+                        <!-- iPhone case price -->
+
+                        <h5>$ <span id="iphoneCasePrice">60</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
+
                      </div>
                   </div>
                </div>
@@ -72,12 +85,71 @@
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
+                  <button type="button" onclick="promptAlert()" class="btn btn-success check-out">Check Out</button>
                </div>
             </div>
          </div>
       </div>
    </section>
+   <script>
+
+      // For iPhone increment
+
+      const productIncrease = document.getElementById("productIncrease");
+      productIncrease.addEventListener("click", function () {
+         productIncrement("productQuantity");
+         itemPrice("rate", "productQuantity", 100)
+
+      })
+      // For iPhone decrement
+      const productDecrease = document.getElementById("productDecrease");
+      productDecrease.addEventListener("click", function () {
+         productDecrement("productQuantity");
+         // price update
+         itemPrice("rate", "productQuantity", 100)
+
+      })
+
+
+      // for iPhone case // iPhone case increment
+      const phoneCaseIncrease = document.getElementById("caseIncreaseButton");
+      phoneCaseIncrease.addEventListener("click", function () {
+         productIncrement("caseQuantity");
+         itemPrice("iphoneCasePrice", "caseQuantity", 60)
+
+      })
+      //iPhone case decrement
+      const phoneCaseDecrease = document.getElementById("caseDecreaseButton");
+      phoneCaseDecrease.addEventListener("click", function () {
+         productDecrement("caseQuantity");
+         itemPrice("iphoneCasePrice", "caseQuantity", 60)
+
+      })
+
+      function itemPrice(id, qty, fixedPrice) {
+         const iPhoneQty = document.getElementById(qty).value;
+         const iPhoneQtyNumber = parseFloat(iPhoneQty);
+         const total = fixedPrice * iPhoneQtyNumber;
+         document.getElementById(id).innerText = total;
+      }
+
+      function productIncrement(id) {
+         const defaultQuantity = document.getElementById(id).value;
+         const currentQuantity = parseFloat(defaultQuantity);
+         const Quantity = currentQuantity + 1;
+         document.getElementById(id).value = Quantity;
+      }
+
+      function productDecrement(id) {
+         const defaultQuantity = document.getElementById(id).value;
+         const currentQuantity = parseFloat(defaultQuantity);
+         if (defaultQuantity > 0) {
+            const Quantity = currentQuantity - 1;
+            document.getElementById(id).value = Quantity;
+         }
+      }
+
+   </script>
 </body>
 
 </html>
